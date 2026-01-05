@@ -20,9 +20,7 @@ export default async function DashboardPage({ params }: PageProps) {
         return notFound();
     }
 
-    // Use the slug as the company name if it's not available in the data (though data usually has it)
-    // The API response doesn't seem to have a top-level company name field, so we title case the slug or use the first lead's company info if available.
-    const companyName = data.leads[0]?.company_name || slug.charAt(0).toUpperCase() + slug.slice(1);
+    const companyName = data.company_name;
 
     return (
         <div className="space-y-6">

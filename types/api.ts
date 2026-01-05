@@ -12,6 +12,9 @@ export interface Lead {
 }
 
 export interface LeadsResponse {
+    slug: string;
+    domain: string;
+    company_name: string;
     leads: Lead[];
     total_leads: number;
 }
