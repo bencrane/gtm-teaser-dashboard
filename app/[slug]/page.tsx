@@ -26,7 +26,7 @@ export default async function DashboardPage({ params }: PageProps) {
         <div className="min-h-screen bg-background text-foreground">
             {/* Page-Specific Header */}
             <header className="border-b border-white/10 bg-background/50 backdrop-blur-xl sticky top-0 z-50">
-                <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+                <div className="max-w-[1600px] w-full mx-auto px-12 md:px-24 lg:px-32 h-16 flex items-center justify-between">
                     <div className="flex items-center gap-4">
                         <h1 className="text-xl font-bold tracking-tight">{companyName}</h1>
                         <span className="bg-emerald-500/10 text-emerald-500 px-3 py-1 rounded-full text-xs font-medium border border-emerald-500/20">
@@ -39,7 +39,7 @@ export default async function DashboardPage({ params }: PageProps) {
                 </div>
             </header>
 
-            <main className="container mx-auto px-4 py-4 space-y-4">
+            <main className="max-w-[1600px] w-full mx-auto px-12 md:px-24 lg:px-32 py-8 space-y-6">
                 {/* Table Section */}
                 {/* We will replace this container with the Smart Client Component in Phase 2 */}
                 <div className="rounded-xl border border-white/10 bg-card/50 overflow-hidden">
