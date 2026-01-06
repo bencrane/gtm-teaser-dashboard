@@ -1,36 +1,98 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# GTM Teaser Dashboard
 
-## Getting Started
+A premium B2B lead intelligence dashboard for Bullseye Revenue. View and filter GTM leads with advanced signals for target companies.
 
-First, run the development server:
+## Quick Start
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000/ramp](http://localhost:3000/ramp) to view the Ramp leads dashboard.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Tech Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Next.js 16** — App Router, Server Components
+- **React 19** — Latest stable
+- **Tailwind CSS v4** — Utility-first styling
+- **TypeScript** — Type safety
+- **Geist Font** — Vercel's premium typeface
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+app/
+├── [slug]/page.tsx     # Dynamic dashboard route (server component)
+├── layout.tsx          # Root layout with fonts
+└── globals.css         # Tailwind + CSS variables
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+components/
+├── dashboard/
+│   └── leads-dashboard.tsx  # Main client component
+└── ui-archive/              # Saved design patterns
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+docs/
+└── DESIGN_DECISIONS.md      # Comprehensive design documentation
 
-## Deploy on Vercel
+lib/
+├── api.ts              # API fetch utilities
+└── utils.ts            # cn() helper
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+types/
+└── api.ts              # Lead/LeadsResponse types
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Features
+
+- **Real-time filtering** — Industry, company size, signals
+- **Sortable columns** — Click headers to sort ascending/descending
+- **Full-text search** — Search across name, title, company, industry
+- **Active filter badges** — Clear indication of applied filters
+- **Server-side data fetching** — Fast initial load, client-side interactivity
+
+## Design Documentation
+
+See [docs/DESIGN_DECISIONS.md](./docs/DESIGN_DECISIONS.md) for comprehensive documentation of:
+
+- Design philosophy and UX principles
+- Technical architecture decisions
+- Component patterns and rationale
+- Color system and typography choices
+- Future considerations
+
+## API
+
+The dashboard fetches from `/api/leads/[slug]` endpoint. Expected response:
+
+```typescript
+interface LeadsResponse {
+    company_name: string;
+    total_leads: number;
+    leads: Lead[];
+}
+
+interface Lead {
+    id: number;
+    full_name: string;
+    title: string;
+    company_name: string;
+    company_domain: string;
+    company_industry: string;
+    company_size: string;
+    linkedin_url: string;
+    worked_at_customer: boolean;
+}
+```
+
+## Environment
+
+Copy `.env.example` to `.env.local` and configure:
+
+```
+NEXT_PUBLIC_API_URL=your-api-url
+```
+
+## License
+
+Proprietary — Bullseye Revenue
