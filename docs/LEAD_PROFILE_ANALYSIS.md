@@ -5,6 +5,7 @@
 This document captures analysis of the lead profile screenshots shared as reference, strategic thinking about the GTM Teaser Dashboard goals, and recommendations for implementation.
 
 **Date:** January 2026  
+**Last Updated:** January 6, 2026 — Added business model context, refined gating strategy  
 **Purpose:** Planning document before building the lead profile/detail view
 
 ---
@@ -104,24 +105,51 @@ Building a **sales tool for selling a sales tool**. The prospect viewing this da
 
 > "If this is what the *teaser* looks like, the full product must be incredible."
 
+### Understanding the Paid Product Value Proposition
+
+The teaser shows ~50 leads. The paid product delivers **volume** — a client would share their entire customer base for matching against the Bullseye database. This means:
+
+1. **Volume is a key differentiator**: The paid product might surface 2,847 leads instead of 50
+2. **Customer-base matching is unique**: Clients share their customers; Bullseye finds look-alikes or relevant signals
+3. **Intelligence compounds with volume**: Filtering/sorting becomes far more valuable with thousands of leads
+
+**Teaser Design Implication:**
+The teaser should make clear that this is a *sample*. The value isn't just richer profiles — it's dramatically more coverage. Show "50 of 2,847 leads" or similar to create the volume expectation.
+
 ### Design Principles for Teasers
 
 #### 1. Show, Don't Tell
 Don't explain what signals you track — *show* a lead with those signals in context. The Amanda Foster profile does this. The prospect can immediately imagine their own leads enriched this way.
 
-#### 2. Create Information Asymmetry
-The teaser should make the prospect feel like they're missing out:
-- Show some signals as locked/blurred
-- Include "12 more signals available in full access" indicator
-- Perhaps Executive Summary is visible but detailed work history is gated
+#### 2. Create Information Asymmetry (The "Intrigue" Factor)
+The teaser should make the prospect feel like they're missing out — not frustrated, but *curious*. This drives the meeting request:
 
-#### 3. Make It Feel Alive
+**Blurring & Gating Tactics:**
+- Show some signals as locked/blurred — visible enough to see structure, obscured enough to create desire
+- Include "12 more signals available in full access" indicator
+- Perhaps Executive Summary is visible but detailed pitch angles are gated
+- Blur the "How Your Product Can Help" section — it's tantalizing to see it exists
+
+**Psychology:**
+The prospect should think: "I can see there's *something* valuable here. I need to know what it says."
+
+This is intrigue, not gatekeeping. The gated content should look *good* — polished enough that they assume the hidden content is equally valuable.
+
+#### 3. Volume as a Forcing Function
+Show the disparity between teaser and full product:
+- "Showing 50 of 2,847 leads for [Company]"
+- "Your customer base matched 2,847 high-intent leads"
+- "Unlock full access to see all leads"
+
+This reframes the value from "better data" to "far more coverage."
+
+#### 4. Make It Feel Alive
 Static data feels like a demo. Dynamic touches help:
 - "New in Role" badge showing "22 days" — specificity feels real
 - "Last updated 2 hours ago" timestamps
 - Dates that feel current (not obviously stale)
 
-#### 4. The Table → Profile Flow
+#### 5. The Table → Profile Flow
 The table view is the "browse" experience. The profile is the "deep dive." The transition should feel seamless:
 - Clicking a row slides in the profile from the right
 - Or opens a modal/drawer
@@ -172,20 +200,61 @@ The table view is the "browse" experience. The profile is the "deep dive." The t
 
 ### Phase 3: Teaser Mechanics
 
-**Gating Strategies:**
-- Locked sections with blur + "Upgrade" prompts
-- Limited lead count ("Showing 50 of 2,847 leads")
-- Some signals visible, others locked
-- Clear CTAs to "Get full access"
+**Gating Strategies (Creating Intrigue):**
+
+| Element | Visible | Blurred/Locked | Rationale |
+|---------|---------|----------------|-----------|
+| Lead name, title, company | ✓ | — | Proves data is real |
+| Key signal tags | ✓ | — | Shows signal types tracked |
+| Executive Summary | ✓ | — | The "wow" moment should be visible |
+| Pitch angles ("How Your Product Can Help") | — | ✓ | Most compelling = most valuable to gate |
+| Full work history | First role ✓ | Rest ✓ blur | Shows depth, gates detail |
+| Contact info (email, phone) | — | ✓ | Classic gate, drives action |
+| Additional signals beyond top 2 | — | "+3 more signals" | Shows breadth without revealing all |
+
+**Volume Messaging:**
+- Header: "Showing 50 of 2,847 leads"
+- Footer: "Unlock [Company]'s full lead database"
+- Subtle but persistent reminder that this is a sample
+
+**Intrigue vs. Frustration Balance:**
+- Never gate so much that the prospect can't assess quality
+- The visible content should be *impressive* — the gated content is bonus
+- Blur effect should be subtle (readable shape, unreadable content)
+- Gated CTAs should feel premium ("Request Full Access") not desperate ("Upgrade Now!")
 
 **Urgency Creation:**
 - "This intelligence refreshes daily for subscribers"
 - Show timestamps suggesting active data pipeline
-- Perhaps a "leads added this week" indicator
+- "12 new leads matched this week" indicator
+- "Signal detected 3 days ago" on funding/new-in-role badges
 
 ---
 
 ## Open Questions
+
+### 0. Filters in Teaser Dashboard — TBD
+
+**Decision needed:** Should the filter functionality remain in the teaser dashboard?
+
+**Arguments for removing:**
+- Few leads (50) don't really need filtering
+- Takes up screen real estate
+- May distract from the core value prop (the leads themselves)
+
+**Arguments for keeping:**
+- Looks "slick" / professional — signals product sophistication
+- Could hardcode some filters to demonstrate capability without full functionality
+- Shows prospects what they'd get in the full product
+
+**Possible middle grounds:**
+- Keep the UI but disable/gray out some filters
+- Show filters but pre-select the "ICP criteria" to reinforce targeting message
+- Minimal filter set (just search + one dropdown)
+
+*To be determined after seeing the full teaser in context.*
+
+---
 
 ### 1. Profile Access Pattern
 Options to decide:
@@ -204,14 +273,34 @@ Need to understand what fields are available in the API:
 - LinkedIn photos?
 
 ### 3. Teaser Gating Approach
-Should implement:
-- Visually locked/blurred sections?
-- "X more signals available" counters?
-- Upgrade CTAs inline?
+**Confirmed direction:** Gating/blurring should create intrigue, not frustration. Key tactics:
+- Blur premium sections (pitch angles, contact info, extended signals)
+- Show volume disparity prominently ("50 of 2,847")
+- Make visible content impressive so gated content is assumed equally valuable
 
 ### 4. Mobile Consideration
 - Desktop-only for v1? (likely, given use case)
 - If mobile needed, profile would need different treatment
+
+---
+
+## Business Model Context
+
+**Teaser (this dashboard):**
+- Sample of ~50 leads for a target company
+- Sent to prospective clients to demonstrate product quality
+- Goal: Drive meeting requests and sales conversations
+
+**Paid Product (full access):**
+- Client shares their entire customer base
+- Bullseye matches against database to surface thousands of leads
+- Full signal depth, no gating, daily refreshes
+- Volume is a primary differentiator (not just richer data)
+
+**Conversion Path:**
+Teaser → Intrigue → Meeting Request → Demo → Contract
+
+The teaser must be good enough to prove value, gated enough to create desire.
 
 ---
 
@@ -332,11 +421,12 @@ Should implement:
 
 ## Next Steps
 
-1. Confirm answers to open questions (profile access pattern, data availability, gating approach)
-2. Define the minimal viable profile view (what's in v1 vs later)
-3. Implement profile component
-4. Integrate with table (click-to-open flow)
-5. Add teaser mechanics if desired
+1. **Confirm profile access pattern** — side panel recommended for context preservation
+2. **Map API fields** — determine what data is actually available for profile population
+3. **Implement profile component** — Lead tab first, then Company tab
+4. **Integrate with table** — click-to-open flow with side panel
+5. **Add teaser mechanics** — gating, volume messaging, intrigue elements
+6. **Polish interactions** — keyboard nav, animations, hover states
 
 ---
 

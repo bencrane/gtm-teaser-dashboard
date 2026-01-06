@@ -16,6 +16,7 @@ import {
     ExternalLink
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { IcpContext, IcpVariant, VariantSwitcher } from "./icp-context";
 
 interface LeadsDashboardProps {
     data: LeadsResponse;
@@ -46,7 +47,19 @@ export function LeadsDashboard({ data, companyName }: LeadsDashboardProps) {
     const [showFilters, setShowFilters] = useState(false);
     const [showSearch, setShowSearch] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
+    const [icpVariant, setIcpVariant] = useState<IcpVariant>("A");
     const searchInputRef = useRef<HTMLInputElement>(null);
+
+    // ICP Context - would come from API in production
+    const icpContext = {
+        thesis: "helps finance teams eliminate expense reports and close books faster. Your ideal customers are scaling companies where manual processes are becoming a bottleneck.",
+        criteria: [
+            { label: "51-500 employees", type: "size" as const },
+            { label: "Series A-C", type: "funding" as const },
+            { label: "New Finance Leader", type: "signal" as const },
+            { label: "QuickBooks/Expensify users", type: "tech" as const },
+        ]
+    };
 
     // Focus input when search expands
     useEffect(() => {
@@ -192,6 +205,14 @@ export function LeadsDashboard({ data, companyName }: LeadsDashboardProps) {
                     </div>
                 </div>
             )}
+
+            {/* ICP Context - Switchable Variants */}
+            <IcpContext
+                companyName={companyName}
+                thesis={icpContext.thesis}
+                criteria={icpContext.criteria}
+                variant={icpVariant}
+            />
 
             {/* Toolbar */}
             <div className="border-b border-border px-8 lg:px-16 xl:px-24 py-3">
@@ -420,6 +441,9 @@ export function LeadsDashboard({ data, companyName }: LeadsDashboardProps) {
                     )}
                 </div>
             </div>
+
+            {/* Dev: ICP Variant Switcher */}
+            <VariantSwitcher variant={icpVariant} onVariantChange={setIcpVariant} />
         </div>
     );
 }
