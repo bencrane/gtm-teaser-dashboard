@@ -20,57 +20,59 @@ export default async function DashboardPage({ params }: PageProps) {
         return notFound();
     }
 
-    const companyName = data.company_name;
+    const companyName = data.company_name || slug.charAt(0).toUpperCase() + slug.slice(1);
 
     return (
-        <div className="space-y-6">
-            <div className="flex items-center justify-between space-y-2">
-                <h2 className="text-3xl font-bold tracking-tight">{companyName}</h2>
-            </div>
-
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-                <div className="rounded-xl border bg-card text-card-foreground shadow-sm p-6">
-                    <div className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <h3 className="tracking-tight text-sm font-medium">Total Leads</h3>
+        <div className="min-h-screen bg-background text-foreground">
+            {/* Page-Specific Header */}
+            <header className="border-b border-white/10 bg-background/50 backdrop-blur-xl sticky top-0 z-50">
+                <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                        <h1 className="text-xl font-bold tracking-tight">{companyName}</h1>
+                        <span className="bg-emerald-500/10 text-emerald-500 px-3 py-1 rounded-full text-xs font-medium border border-emerald-500/20">
+                            {data.total_leads} Leads Found
+                        </span>
                     </div>
-                    <div className="text-2xl font-bold">{data.total_leads}</div>
-                    <p className="text-xs text-muted-foreground">Available contacts</p>
+                    <div className="text-sm font-medium text-muted-foreground">
+                        Bullseye
+                    </div>
                 </div>
-            </div>
+            </header>
 
-            <div className="space-y-4">
-                <div className="rounded-md border">
+            <main className="container mx-auto px-4 py-4 space-y-4">
+                {/* Table Section */}
+                {/* We will replace this container with the Smart Client Component in Phase 2 */}
+                <div className="rounded-xl border border-white/10 bg-card/50 overflow-hidden">
+                    {/* ... Phase 2 will inject client component here ... */}
+                    {/* For now, keeping existing static table to verify Phase 1 layout */}
+
+                    {/* Temporary render of existing table logic to keep page usable during refactor */}
                     <div className="w-full overflow-auto">
                         <table className="w-full caption-bottom text-sm">
-                            <thead className="[&_tr]:border-b">
-                                <tr className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
-                                    <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground">Name</th>
-                                    <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground">Title</th>
-                                    <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground">Company</th>
-                                    <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground">Industry</th>
-                                    <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground">Size</th>
+                            <thead className="[&_tr]:border-b [&_tr]:border-white/5">
+                                <tr className="border-b border-white/5 transition-colors hover:bg-white/5 data-[state=selected]:bg-muted">
+                                    <th className="h-10 px-4 text-left align-middle font-medium text-muted-foreground text-xs uppercase tracking-wider">Name</th>
+                                    <th className="h-10 px-4 text-left align-middle font-medium text-muted-foreground text-xs uppercase tracking-wider">Title</th>
+                                    <th className="h-10 px-4 text-left align-middle font-medium text-muted-foreground text-xs uppercase tracking-wider">Company</th>
+                                    <th className="h-10 px-4 text-left align-middle font-medium text-muted-foreground text-xs uppercase tracking-wider">Industry</th>
+                                    <th className="h-10 px-4 text-left align-middle font-medium text-muted-foreground text-xs uppercase tracking-wider">Size</th>
                                 </tr>
                             </thead>
                             <tbody className="[&_tr:last-child]:border-0">
                                 {data.leads.map((lead, index) => (
-                                    <tr key={index} className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
-                                        <td className="p-4 align-middle font-medium">{lead.full_name}</td>
-                                        <td className="p-4 align-middle">{lead.title}</td>
-                                        <td className="p-4 align-middle">{lead.company_name}</td>
-                                        <td className="p-4 align-middle">{lead.company_industry}</td>
-                                        <td className="p-4 align-middle">{lead.company_size}</td>
+                                    <tr key={index} className="border-b border-white/5 transition-colors hover:bg-white/5 data-[state=selected]:bg-muted">
+                                        <td className="p-4 align-middle font-medium text-white">{lead.full_name}</td>
+                                        <td className="p-4 align-middle text-muted-foreground">{lead.title}</td>
+                                        <td className="p-4 align-middle text-muted-foreground">{lead.company_name}</td>
+                                        <td className="p-4 align-middle text-muted-foreground">{lead.company_industry}</td>
+                                        <td className="p-4 align-middle text-muted-foreground">{lead.company_size}</td>
                                     </tr>
                                 ))}
-                                {data.leads.length === 0 && (
-                                    <tr>
-                                        <td colSpan={5} className="p-4 text-center text-muted-foreground">No leads found.</td>
-                                    </tr>
-                                )}
                             </tbody>
                         </table>
                     </div>
                 </div>
-            </div>
+            </main>
         </div>
     );
 }
