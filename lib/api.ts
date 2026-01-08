@@ -36,7 +36,7 @@ export async function fetchAPI<T>(endpoint: string, options: RequestInit = {}): 
 }
 
 export async function getLeads(slug: string): Promise<LeadsResponse | null> {
-    const url = `${API_URL}/api/leads/${slug}.com`;
+    const url = `${API_URL}/api/leads/${slug}`;
 
     const response = await fetch(url, {
         headers: {
